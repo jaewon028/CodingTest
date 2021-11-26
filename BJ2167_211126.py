@@ -26,18 +26,38 @@ K개의 줄에 순서대로 배열의 합을 출력한다. 배열의 합은 2**3
 '''
 
 
+# 시간초과
+# if __name__ == "__main__":
+#     n, m = map(int, input().split())
+#     list_array = [list(map(int, input().split())) for _ in range(n)]
+#
+#     k = int(input())
+#     for _ in range(k):
+#         answer=0
+#         i,j,x,y = map(int, input().split())
+#
+#         for a in range(i-1, x):
+#             for b in range(j-1, y):
+#                 answer += list_array[a][b]
+#
+#         print(answer)
 
 if __name__ == "__main__":
+    # 문제 입력 값 받기
     n, m = map(int, input().split())
     list_array = [list(map(int, input().split())) for _ in range(n)]
 
+    # dp table 초기화
+    dp = [[0] * (m+1) for _ in range(n+1)]
+
+    # dp table 생성
+    for a in range(1, n+1):
+        for b in range(1, m+1):
+            dp[a][b] = list_array[a-1][b-1] + dp[a][b-1] + dp[a-1][b] - dp[a-1][b-1]
+
+    # 문제 닶 계산
     k = int(input())
     for _ in range(k):
-        answer=0
         i,j,x,y = map(int, input().split())
-
-        for a in range(i-1, x):
-            for b in range(j-1, y):
-                answer += list_array[a][b]
-
+        answer = dp[x][y] - dp[x][j - 1] - dp[i - 1][y] + dp[i - 1][j - 1]
         print(answer)
