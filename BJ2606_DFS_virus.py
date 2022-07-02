@@ -48,3 +48,4 @@ if __name__=="__main__":
     # answer_dfs = dfs(graph, V)
 
     answer_dfs = dfs_virus(graph, V)
+    print(answer_dfs)
